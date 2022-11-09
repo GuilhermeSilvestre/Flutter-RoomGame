@@ -27,17 +27,6 @@ class _VideoAppState extends State<VideoApp> {
           contador = 2;
         });
       }
-      if (contador == 2) {
-        print('----------aaaaaaaaaaaaaaaaaaa--------');
-        setState(() {
-          flag_end_intro = true;
-          contador = 3;
-        });
-      }
-      if (contador == 3) {
-        setState(() {});
-        contador = 4;
-      }
 
       print(contador);
       print(flag_end_intro);
@@ -86,7 +75,7 @@ class _VideoAppState extends State<VideoApp> {
                         )
                       : Container(),
                 ),
-              if (flag_end_intro && !flag_left && !flag_front && !flag_right)
+              if (flag_end_intro)
                 Column(
                   children: [
                     Align(
@@ -109,7 +98,7 @@ class _VideoAppState extends State<VideoApp> {
                                       setState(() {});
                                     });
                               _controller.addListener(checkVideo);
-                              _controller.play();
+                              _controller.play().then((value) => contador = 1);
                             },
                             child: Text('Left')),
                         ElevatedButton(
@@ -123,7 +112,7 @@ class _VideoAppState extends State<VideoApp> {
                                   setState(() {});
                                 });
                               _controller.addListener(checkVideo);
-                              _controller.play();
+                              _controller.play().then((value) => contador = 1);
                             },
                             child: Text('Center')),
                         ElevatedButton(
@@ -137,65 +126,7 @@ class _VideoAppState extends State<VideoApp> {
                                   setState(() {});
                                 });
                               _controller.addListener(checkVideo);
-                              _controller.play();
-                            },
-                            child: Text('Right')),
-                      ],
-                    ),
-                  ],
-                ),
-              if (flag_end_intro && (flag_left || flag_front || flag_right))
-                Column(
-                  children: [
-                    Align(
-                      child: SizedBox(
-                        child: Image.asset('assets/basic.png'),
-                      ),
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        ElevatedButton(
-                            onPressed: () {
-                              flag_left = true;
-                              flag_end_intro = false;
-                              _controller =
-                                  VideoPlayerController.asset('assets/left.mp4')
-                                    ..initialize().then((_) {
-                                      // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-                                      setState(() {});
-                                    });
-                              _controller.addListener(checkVideo);
-                              _controller.play();
-                            },
-                            child: Text('Left')),
-                        ElevatedButton(
-                            onPressed: () {
-                              flag_front = true;
-                              flag_end_intro = false;
-                              _controller = VideoPlayerController.asset(
-                                  'assets/front2.mp4')
-                                ..initialize().then((_) {
-                                  // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-                                  setState(() {});
-                                });
-                              _controller.addListener(checkVideo);
-                              _controller.play();
-                            },
-                            child: Text('Center')),
-                        ElevatedButton(
-                            onPressed: () {
-                              flag_right = true;
-                              flag_end_intro = false;
-                              _controller = VideoPlayerController.asset(
-                                  'assets/right.mp4')
-                                ..initialize().then((_) {
-                                  // Ensure the first frame is shown after the video is initialized, even before the play button has been pressed.
-                                  setState(() {});
-                                });
-                              _controller.addListener(checkVideo);
-                              _controller.play();
+                              _controller.play().then((value) => contador = 1);
                             },
                             child: Text('Right')),
                       ],
